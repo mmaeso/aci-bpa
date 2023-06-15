@@ -1,0 +1,66 @@
+[
+    {
+        "name": "mcp",
+        "url": "/node/mo/uni/infra/mcpInstP-default.json?query-target=self",
+        "querystring": "imdata[0].mcpInstPol.attributes.adminSt",
+        "status": "disabled",
+        "desired_status": "enabled",
+        "description": "MCP should be enabled. MisCabling Protocol (or MCP) detects loops from external sources (i.e., misbehaving servers, external networking equipment running STP) and will err-disable the interface on which ACI receives its own packet.\nEnable MCP by going to Fabric -> Access Policies -> Policies -> Global -> MCP Instance Policy Default, setting the Admin State switch to Enabled and configuring a key in the 'Enter Key' field."
+    },
+    {
+        "name": "mcp_pdu_per_vlan",
+        "url": "/node/mo/uni/infra/mcpInstP-default.json?query-target=self",
+        "querystring": "imdata[0].mcpInstPol.attributes.ctrl",
+        "status": "",
+        "desired_status": "pdu-per-vlan",
+        "description": "MCP PDU per VLAN should be enabled. This feature enables MCP to send packets on a per-EPG basis, otherwise, these packets will only be sent on untagged EPGs.\nMCP PDU per VLAN can be enabled by going to Fabric -> Access Policies -> Policies -> Global -> MCP Instance Policy Default, and checking the 'Enable MCP PDU per VLAN' box."
+    },
+    {
+        "name": "remote_ep_learn",
+        "url": "/node/mo/uni/infra/settings.json",
+        "querystring": "imdata[0].infraSetPol.attributes.unicastXrEpLearnDisable",
+        "status": "no",
+        "desired_status": "yes",
+        "description": "'Disable Remote EP Learn' should be enabled. This feature will disable remote IP learning on border leaf switches.\nThis feature can be activated by going to System -> System Settings -> Fabric-Wide Settings and checking the 'Disable Remote EP Learn' box."
+    },
+    {
+        "name": "enforce_subnet_check",
+        "url": "/node/mo/uni/infra/settings.json",
+        "querystring": "imdata[0].infraSetPol.attributes.enforceSubnetCheck",
+        "status": "no",
+        "desired_status": "yes",
+        "description": "Enforce Subnet Check should be enabled. This feature prevents the learning of IP endpoints if they are not a subnet configured on the BD or VRF.\nNote that 'Enforce Subnet Check' will ONLY work on EX/FX based platforms.To enable this feature, go to System -> System Settings -> Fabric-Wide Settings and enable the 'Enforce Subnet Check' box"
+    },
+    {
+        "name": "ep_loop_detection",
+        "url": "/node/mo/uni/infra.json?query-target=children&target-subtree-class=epLoopProtectP",
+        "querystring": "imdata[0].epLoopProtectP.attributes.adminSt",
+        "status": "enabled",
+        "desired_status": "disabled",
+        "description": "Endpoint Loop Protection should be disabled since it creates too many false positives. If you want to keep it enabled, uncheck the 'Port Disable' checkbox in System -> System Settings -> Endpoint Controls -> EP Loop Protection"
+    },
+    {
+        "name": "ip_aging",
+        "url": "/node/mo/uni/infra.json?query-target=children&target-subtree-class=epIpAgingP",
+        "querystring": "imdata[0].epIpAgingP.attributes.adminSt",
+        "status": "disabled",
+        "desired_status": "enabled",
+        "description": "Ip Aging should be enabled. This feature tracks and ages unused IPs on an endpoint. At 75% of the endpoint aging interval, an ARP request is sent by the BD, and if no answer is received, the Ip is aged out.\nThis feature can be enabled by going to This feature can be enabled by going to System -> System Settings -> Endpoint Controls -> Ip Aging"
+    },
+    {
+        "name": "rogue_ep_detection",
+        "url": "/node/mo/uni/infra.json?query-target=children&target-subtree-class=epControlP",
+        "querystring": "imdata[0].epControlP.attributes.adminSt",
+        "status": "disabled",
+        "desired_status": "enabled",
+        "description": "Rogue EP Detection should be enabled. This feature detects flapping and disables learning for these endpoints only.\nThis feature can be enabled by going to System -> System Settings -> Endpoint Controls -> Rogue EP Control"
+    },
+    {
+        "name": "strict_coop_gp",
+        "url": "/node/mo/uni/fabric/pol-default.json?query-target=self",
+        "querystring": "imdata[0].coopPol.attributes.type",
+        "status": "compatible",
+        "desired_status": "strict",
+        "description": "The COOP Group policy should be set to Strict.In Strict mode, COOP only allows MD5 authenticated ZMQ conections.\nIn Compatible mode, both authenticated and unauthenticated ZMQ conections are allowed.\nGo to System -> System Settings -> COOP Group to enable Strict mode"
+    }
+]
