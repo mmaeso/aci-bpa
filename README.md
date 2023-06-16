@@ -7,14 +7,18 @@ The script has been tested against ACI Simulator versions 4.2 and 5.1, and 6.0 o
 Clone the project to your system and run the following:
 `python3 -m pip install -r requirements.txt`
 
-After cloning and installing the requirementes, imply run the script using:
+After cloning and installing the requirements, simply run the script using:
 `python3 aci-bpa.py -i <apic ip address> -u <username> `
 or:
 `python3 aci-bpa.py -a <apic hostname> -u <username>`
 
 You can optionally pass the password as a command line argument using `-p <password>`.    
 
-> **_NOTE:_** If your password has special characters you should encase it in single quotes: ` -p '<password>'`
+> **_NOTE:_** If your password has special characters you should encase it in single quotes ` -p '<password>'`
+
+Example:
+
+`python3 aci-bpa.py -a sandboxapicdc.cisco.com -u admin -p '!v3G@!4@Y'`
 
 ## Output
 
